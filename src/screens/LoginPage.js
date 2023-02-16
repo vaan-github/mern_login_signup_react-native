@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Image, TextInput, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, SafeAreaView,ScrollView } from 'react-native'
 import React from 'react'
 import pattern from '../../assets/pattern.png'
 import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
 import { formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.patternbg} source={pattern} />
@@ -16,22 +16,24 @@ const Login = () => {
           <Text style={styles.h1}>Face Recognition</Text>
           <Text style={styles.small}>Attendence App</Text>
         </View>
-        <View style={styles.s2}>
+        <ScrollView style={styles.s2}>
           <Text style={head1}>Login</Text>
           <Text style={head2}>Sign in to continue</Text>
           <View style={formgroup}>
             <Text style={label}>Email</Text>
-            <TextInput style={input} />
+            <TextInput style={input} placeholder='example@email.com'/>
             <Text style={label}>Password</Text>
-            <TextInput style={input} />
+            <TextInput style={input} placeholder='Contains strings,number,special char' />
           </View>
           <Text style={button1}>Log In</Text>
           <View style={styles.fp}>
             <Text style={link}>Forget Password</Text>
           </View>
-          <Text style={link}>Don't have an account?</Text>
-          <Text style={link1}>Sign Up</Text>
-        </View>
+          <Text style={link}
+          onPress={() => navigation.navigate('signup')}>Don't have an account?</Text>
+          <Text style={link1}
+          onPress={() => navigation.navigate('signup')}>Sign Up</Text>
+        </ScrollView>
       </View>
     </SafeAreaView>
   )
@@ -62,27 +64,33 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   logo: {
-
+      height: 100,
+      resizeMode: 'contain',
   },
   s1: {
     display: 'flex',
-    justifyContent: 'center',
-    height: '40%',
+    justifyContent: 'flex-end',
+    padding: 20,
+    height: '50%',
   },
   s2: {
     display: 'flex',
     backgroundColor: '#fff',
     width: '100%',
-    height: '60%',
+    height: '50%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 20,
   },
   h1: {
+    display: 'flex',
+    justifyContent: 'flex-end',
     fontSize: 30,
     color: '#fff',
   },
   small: {
+    display: 'flex',
+    justifyContent: 'flex-end',
     color: '#fff',
     fontSize: 17,
   },

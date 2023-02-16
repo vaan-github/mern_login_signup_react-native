@@ -1,21 +1,26 @@
-import { StyleSheet, Text, View, Image, TextInput, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, SafeAreaView,ScrollView } from 'react-native'
 import React from 'react'
 import pattern from '../../assets/pattern.png'
 import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
 import { formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const Signup = () => {
+const Signup = ({navigation}) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image style={styles.patternbg} source={pattern} />
 
-      <View style={styles.container1}>
-       
-        <View style={styles.s2}>
+      <SafeAreaView style={styles.container1}>
+      <View style={styles.s1}>
+          <Text style={styles.h1}>Face Recognition</Text>
+          <Text style={styles.small}>Attendence App</Text>
+        </View>
+        <ScrollView style={styles.s2}>
           <Text style={head1}>Create new account</Text>
-          <Text style={link}>Already Register?</Text>
-          <Text style={link1}>Login Here</Text>
+          <Text style={link}
+          onPress={() => navigation.navigate('login')}>Already Register?</Text>
+          <Text style={link1}
+          onPress={() => navigation.navigate('login')}>Login Here</Text>
      
           <View style={formgroup}>
             <Text style={label}>Name</Text>
@@ -33,9 +38,9 @@ const Signup = () => {
           <View style={styles.fp}>
             {/* <Text style={link}>Forget Password</Text> */}
           </View>
-        </View>
-      </View>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   )
 }
 
@@ -65,6 +70,12 @@ const styles = StyleSheet.create({
   },
   logo: {
 
+  },
+  s1: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: 20,
+    height: '20%',
   },
   s2: {
     display: 'flex',

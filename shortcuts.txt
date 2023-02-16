@@ -1,0 +1,3 @@
+Shift + Alt + F = Formatting 
+Alt + arrow(Up/Down) = Move Line of code
+Shift + Alt + arrow(Up/Down) = Advance Copy to next line 
