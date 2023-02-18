@@ -1,11 +1,56 @@
-import { StyleSheet, Text, View, Image, TextInput, SafeAreaView,ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import pattern from '../../assets/pattern.png'
 import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
-import { formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
+import { errorstyle, formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
+import { useState } from 'react'
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
+
+  const ngrok_signup = 'https://6256-203-192-238-192.in.ngrok.io/signup'
+  const ngrok_signin = 'https://6256-203-192-238-192.in.ngrok.io/signin'
+  const [fdata, setFdata] = useState({
+    email: '',
+    password: '',
+  })
+  const [errormsg, setErrorMsg] = useState(null);
+  
+  const Sendtobackend = () => {
+    console.log(fdata)
+    if (fdata.email == '' ||
+      fdata.password == '') {
+      setErrorMsg('All fields are required');
+      return;
+    } else {
+      fetch(ngrok_signin
+        , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(fdata)
+        }).then(res => res.json()).then(data => {
+          // console.log(data);
+          if (data.error) {
+            setErrorMsg(data.error);
+            setTimeout(() => {
+              navigation.navigate('signup');
+              alert('Please signup first'); 
+            }, 1000);
+            
+          }
+          else {
+            alert('Login Successfully');
+            navigation.navigate('homepage');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.patternbg} source={pattern} />
@@ -19,20 +64,34 @@ const Login = ({navigation}) => {
         <ScrollView style={styles.s2}>
           <Text style={head1}>Login</Text>
           <Text style={head2}>Sign in to continue</Text>
+          {
+            errormsg ? <Text style={errorstyle}>{errormsg}</Text> : null
+          }
           <View style={formgroup}>
             <Text style={label}>Email</Text>
-            <TextInput style={input} placeholder='example@email.com'/>
+            <TextInput style={input} placeholder='example@email.com'
+              onChangeText={(text) => setFdata({ ...fdata, email: text })} 
+              onPressIn={()=> setErrorMsg(null)}/>
             <Text style={label}>Password</Text>
-            <TextInput style={input} placeholder='Contains strings,number,special char' />
+            <TextInput style={input} placeholder='Contains strings,number,special char'
+              onChangeText={(text) => setFdata({ ...fdata, password: text })}
+              secureTextEntry={true} 
+              onPressIn={()=> setErrorMsg(null)}/>
           </View>
-          <Text style={button1}>Log In</Text>
+          <TouchableOpacity 
+            onPress={() => {
+              Sendtobackend();
+            }}>
+          <Text style={button1} >Log In</Text>
+          </TouchableOpacity>
           <View style={styles.fp}>
             <Text style={link}>Forget Password</Text>
           </View>
+          
           <Text style={link}
-          onPress={() => navigation.navigate('signup')}>Don't have an account?</Text>
+            onPress={() => navigation.navigate('signup')}>Don't have an account?</Text>
           <Text style={link1}
-          onPress={() => navigation.navigate('signup')}>Sign Up</Text>
+            onPress={() => navigation.navigate('signup')}>Sign Up</Text>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -64,8 +123,8 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   logo: {
-      height: 100,
-      resizeMode: 'contain',
+    height: 100,
+    resizeMode: 'contain',
   },
   s1: {
     display: 'flex',

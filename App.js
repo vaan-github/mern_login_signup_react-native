@@ -5,6 +5,7 @@ import Login from './src/screens/LoginPage';
 import Signup from './src/screens/SignupPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomePage from './src/screens/HomePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,10 @@ export default function App() {
             { headerShown: false }
           } />
         <Stack.Screen name="signup" component={Signup}
+          options={
+            { headerShown: false }
+          } />
+          <Stack.Screen name="homepage" component={HomePage}
           options={
             { headerShown: false }
           } />

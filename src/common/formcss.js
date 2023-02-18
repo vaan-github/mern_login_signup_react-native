@@ -39,5 +39,14 @@ module.exports = {
     fontSize: 17,
     textAlign: 'center',
   },
+  errorstyle: {
+    color: 'white',
+    fontSize: 15,
+    textAlign: 'center',
+    backgroundColor: 'red',
+    padding: 5,
+    borderRadius: 10,
+
+  },
 }
 

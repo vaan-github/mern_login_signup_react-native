@@ -1,45 +1,124 @@
-import { StyleSheet, Text, View, Image, TextInput, SafeAreaView,ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import pattern from '../../assets/pattern.png'
 import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
-import { formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
+import { errorstyle, formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const Signup = ({navigation}) => {
+const ngrok_signup = 'https://6256-203-192-238-192.in.ngrok.io/signup'
+
+const Signup = ({ navigation }) => {
+
+  const [fdata, setFdata] = useState({
+    name: '',
+    dob: '',
+    email: '',
+    password: '',
+    cpassword: '',
+  })
+  const [errormsg, setErrorMsg] = useState(null);
+
+  const Sendtobackend = () => {
+    // console.log(fdata)
+    if (fdata.name == '' ||
+      fdata.email == '' ||
+      fdata.password == '' ||
+      fdata.cpassword == '' ||
+      fdata.dob == '') {
+      setErrorMsg('All fields are required');
+      return;
+    } else {
+      if (fdata.password !== fdata.cpassword) {
+        setErrorMsg('Password and Confirm Password must be same');
+        return;
+      } else {
+        fetch(ngrok_signup
+          , {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(fdata)
+          }).then(res => res.json()).then(data => {
+            // console.log(data);
+            if (data.error) {
+              setErrorMsg(data.error);
+              setTimeout(() => {
+                navigation.navigate('login'); 
+              }, 1000);
+              
+            }
+            else {
+              alert('User created successfully');
+              navigation.navigate('login');
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+    }
+  }
   return (
     <View style={styles.container}>
       <Image style={styles.patternbg} source={pattern} />
 
-      <SafeAreaView style={styles.container1}>
-      <View style={styles.s1}>
+      <View style={styles.container1}>
+        <View style={styles.s1}>
           <Text style={styles.h1}>Face Recognition</Text>
           <Text style={styles.small}>Attendence App</Text>
         </View>
         <ScrollView style={styles.s2}>
           <Text style={head1}>Create new account</Text>
           <Text style={link}
-          onPress={() => navigation.navigate('login')}>Already Register?</Text>
+            onPress={() => navigation.navigate('login')}>Already Register?</Text>
           <Text style={link1}
-          onPress={() => navigation.navigate('login')}>Login Here</Text>
-     
+            onPress={() => navigation.navigate('login')}>Login Here</Text>
+
+          {
+            errormsg ? <Text style={errorstyle}>{errormsg}</Text> : null
+          }
+
           <View style={formgroup}>
             <Text style={label}>Name</Text>
-            <TextInput style={input} placeholder='Enter your name'/>
+            <TextInput style={input} placeholder='Enter your name'
+              onChangeText={(text) => setFdata({ ...fdata, name: text })}
+              onPressIn={() => setErrorMsg(null)}
+            />
             <Text style={label}>D.O.B</Text>
-            <TextInput style={input} placeholder='DD/MM/YYYY' />
+            <TextInput style={input} placeholder='DD/MM/YYYY'
+              onChangeText={(text) => setFdata({ ...fdata, dob: text })}
+              onPressIn={() => setErrorMsg(null)}
+            />
             <Text style={label}>Email</Text>
-            <TextInput style={input} placeholder='example@email.com'/>
+            <TextInput style={input} placeholder='example@email.com'
+              onChangeText={(text) => setFdata({ ...fdata, email: text })}
+              onPressIn={() => setErrorMsg(null)}
+            />
             <Text style={label}>Password</Text>
-            <TextInput style={input} placeholder='Contains strings,number,special char'/>
+            <TextInput style={input} placeholder='Contains strings,number,special char'
+              onChangeText={(text) => setFdata({ ...fdata, password: text })}
+              secureTextEntry={true}
+              onPressIn={() => setErrorMsg(null)}
+            />
             <Text style={label}>Confirm Password</Text>
-            <TextInput style={input} placeholder='write same password here' />
+            <TextInput style={input} placeholder='write same password here'
+              onChangeText={(text) => setFdata({ ...fdata, cpassword: text })}
+              secureTextEntry={true}
+              onPressIn={() => setErrorMsg(null)}
+            />
           </View>
-          <Text style={button1}>Sign Up</Text>
+          <TouchableOpacity
+            onPress={() => {
+              Sendtobackend();
+            }}>
+            <Text style={button1}>Sign Up</Text>
+          </TouchableOpacity>
           <View style={styles.fp}>
             {/* <Text style={link}>Forget Password</Text> */}
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </View>
   )
 }
