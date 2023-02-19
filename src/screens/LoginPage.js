@@ -8,8 +8,8 @@ import { useState } from 'react'
 
 const Login = ({ navigation }) => {
 
-  const ngrok_signup = 'https://6256-203-192-238-192.in.ngrok.io/signup'
-  const ngrok_signin = 'https://6256-203-192-238-192.in.ngrok.io/signin'
+  // const ngrok_signup = ' https://5c34-103-10-226-151.in.ngrok.io/signup'
+  const ngrok_signin = 'https://server-mern-login-signup-react-native.onrender.com/signin'
   const [fdata, setFdata] = useState({
     email: '',
     password: '',

@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const HomePage = ({navigation}) => {
   return (
     <SafeAreaView style={formgroup}>
-      <Text style={head1}>HomePage</Text>
+      <Text style={head1}>HomePage This is new update</Text>
       <Text style={button1}
       onPress={()=>navigation.navigate('login')}>LogOut</Text>
     </SafeAreaView>

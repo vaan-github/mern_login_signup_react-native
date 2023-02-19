@@ -5,7 +5,7 @@ import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
 import { errorstyle, formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const ngrok_signup = 'https://6256-203-192-238-192.in.ngrok.io/signup'
+const ngrok_signup = 'https://server-mern-login-signup-react-native.onrender.com/signup'
 
 const Signup = ({ navigation }) => {
 
