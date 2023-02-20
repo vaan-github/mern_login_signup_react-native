@@ -8,25 +8,32 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 const Otp = ({navigation,route}) => {
-  const Renderdotcom_signup = 'https://server-mern-login-signup-react-native.onrender.com/signup'
-  const Renderdotcom_verify = 'https://server-mern-login-signup-react-native.onrender.com/verify'
-  
+  const RenderDotCom_signup = 'https://server-mern-login-signup-react-native.onrender.com/signup'
+
   const userdata = route.params.userData;
   const [errormsg, setErrorMsg] = useState(null);
   const [usercode, setUsercode] = useState("XXXX");
   const [actualotp, setActualotp] = useState(null);
   
-  useEffect(() => {
+  useEffect( () => {
     setActualotp(userdata.otp);
   }, [])
+
   //
   // console.log(route.params.userData.otp);
   // console.log("from otp page",userdata[0]?.otp); //not working 
   //
+  const resendOTP = () => {
+    alert("Click Again On Signup Button");
+    navigation.navigate('signup');
+  
+  }
+
+  
   const Sendtobackend = () => {
     // console.log("from otp page",userdata.otp);
-    // console.log(usercode)
-    // console.log(actualotp)
+    console.log(usercode)
+    console.log(actualotp)
     if (usercode == '' || usercode == 'XXXX') {
       setErrorMsg('Enter OTP Please');
       return;
@@ -42,7 +49,7 @@ const Otp = ({navigation,route}) => {
         email: userdata.email,
         password: userdata.password,
       }
-      fetch(Renderdotcom_signup, {
+      fetch(RenderDotCom_signup, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -66,24 +73,7 @@ const Otp = ({navigation,route}) => {
     }
 
   }
-  const resendOTP = () => {
-    const fdata = {
-      name: userdata.name,
-      dob: userdata.dob,
-      email: userdata.email,
-      password: userdata.password,
-    }
-    fetch(RenderDotCom_verify
-      , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(fdata)
-      })
-      alert("New OTP Sent to Your Email");
-}
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.patternbg} source={pattern} />
