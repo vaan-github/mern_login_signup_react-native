@@ -21,7 +21,6 @@ const Otp = ({navigation,route}) => {
   //
   // console.log(route.params.userData.otp);
   // console.log("from otp page",userdata[0]?.otp); //not working 
-  // const ngrok_signup = ' https://5c34-103-10-226-151.in.ngrok.io/signup'
   //
   
   const Sendtobackend = () => {
@@ -32,7 +31,7 @@ const Otp = ({navigation,route}) => {
       setErrorMsg('Enter OTP Please');
       return;
     }
-    else if (usercode !== actualotp) {
+    else if (usercode != actualotp) {
       setErrorMsg('Wrong OTP');
       return;
     }
@@ -51,8 +50,8 @@ const Otp = ({navigation,route}) => {
         body: JSON.stringify(fdata)
       }).then(res => res.json()).then(data => {
         // console.log(data);
-        if (message="User Registered Successfully") {
-          alert(data.message=="User Registered Successfully");
+        if (data.message="User Registered Successfully") {
+          alert(data.message);
           setTimeout(() => {
           navigation.navigate('login');
         }, 1000);
