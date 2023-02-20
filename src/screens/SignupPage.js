@@ -5,7 +5,7 @@ import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
 import { errorstyle, formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const ngrok_signup = 'https://server-mern-login-signup-react-native.onrender.com/verify'
+const RenderDotCom_signup = 'https://server-mern-login-signup-react-native.onrender.com/verify'
 
 const Signup = ({ navigation }) => {
 
@@ -32,7 +32,7 @@ const Signup = ({ navigation }) => {
         setErrorMsg('Password and Confirm Password must be same');
         return;
       } else {
-        fetch(ngrok_signup
+        fetch(RenderDotCom_signup
           , {
             method: 'POST',
             headers: {

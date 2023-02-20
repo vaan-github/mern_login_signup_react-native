@@ -46,7 +46,17 @@ module.exports = {
     backgroundColor: 'red',
     padding: 5,
     borderRadius: 10,
+    marginVertical: 5,
+  },
 
+  BWmessage: {
+    color: 'white',
+    fontSize: 15,
+    textAlign: 'center',
+    backgroundColor: 'black',
+    padding: 5,
+    borderRadius: 10,
+    marginVertical: 5,
   },
 }
 
