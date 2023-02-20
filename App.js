@@ -6,6 +6,7 @@ import Signup from './src/screens/SignupPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './src/screens/HomePage';
+import Otp from './src/screens/otp';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,10 @@ export default function App() {
             { headerShown: false }
           } />
           <Stack.Screen name="homepage" component={HomePage}
+          options={
+            { headerShown: false }
+          } />
+          <Stack.Screen name="otp" component={Otp}
           options={
             { headerShown: false }
           } />

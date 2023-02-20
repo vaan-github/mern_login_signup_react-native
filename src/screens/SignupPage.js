@@ -5,7 +5,7 @@ import mainlogo from '../../assets/mainlogo.png'
 import { button1 } from '../common/button'
 import { errorstyle, formgroup, head1, head2, input, label, link, link1 } from '../common/formcss'
 
-const ngrok_signup = 'https://server-mern-login-signup-react-native.onrender.com/signup'
+const ngrok_signup = 'https://server-mern-login-signup-react-native.onrender.com/verify'
 
 const Signup = ({ navigation }) => {
 
@@ -47,6 +47,12 @@ const Signup = ({ navigation }) => {
                 navigation.navigate('login'); 
               }, 1000);
               
+            }
+            else if(data.message=="OTP sent to your email"){
+              // console.log(data.Udata);
+              alert(data.message, data.email);
+              navigation.navigate('otp', {userData:data.Udata});
+
             }
             else {
               alert('User created successfully');
