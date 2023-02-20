@@ -51,15 +51,17 @@ const Otp = ({navigation,route}) => {
         body: JSON.stringify(fdata)
       }).then(res => res.json()).then(data => {
         // console.log(data);
-        if (data.error) {
+        if (message="User Registered Successfully") {
+          alert(data.message=="User Registered Successfully");
+          setTimeout(() => {
+          navigation.navigate('login');
+        }, 1000);
+        }
+        else if (data.error) {
           setErrorMsg(data.error);
           setTimeout(() => {
             navigation.navigate('signup');
           }, 1000);
-        }
-        else {
-          alert('User created successfully');
-          navigation.navigate('login');
         }
       })
     }
