@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 
 const Otp = ({navigation,route}) => {
   const Renderdotcom_signup = 'https://server-mern-login-signup-react-native.onrender.com/signup'
+  const Renderdotcom_verify = 'https://server-mern-login-signup-react-native.onrender.com/verify'
   
   const userdata = route.params.userData;
   const [errormsg, setErrorMsg] = useState(null);
@@ -22,7 +23,6 @@ const Otp = ({navigation,route}) => {
   // console.log(route.params.userData.otp);
   // console.log("from otp page",userdata[0]?.otp); //not working 
   //
-  
   const Sendtobackend = () => {
     // console.log("from otp page",userdata.otp);
     // console.log(usercode)
@@ -55,7 +55,7 @@ const Otp = ({navigation,route}) => {
           setTimeout(() => {
           navigation.navigate('login');
         }, 1000);
-        }
+      }
         else if (data.error) {
           setErrorMsg(data.error);
           setTimeout(() => {
@@ -66,6 +66,23 @@ const Otp = ({navigation,route}) => {
     }
 
   }
+  const resendOTP = () => {
+    const fdata = {
+      name: userdata.name,
+      dob: userdata.dob,
+      email: userdata.email,
+      password: userdata.password,
+    }
+    fetch(RenderDotCom_verify
+      , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(fdata)
+      })
+      alert("New OTP Sent to Your Email");
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,6 +111,11 @@ const Otp = ({navigation,route}) => {
               Sendtobackend();
             }}>
           <Text style={button1} >Verify</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            resendOTP();
+          }}>
+            <Text style={link1}>Resend OTP</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
